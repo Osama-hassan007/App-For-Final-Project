@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('CI') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'osos-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                git 'https://github.com/mahmoud254/jenkins_nodejs_example'
+                sh """
+                docker login -u ${USERNAME} -p ${PASSWORD}
+                docker build . -f dockerfile -t osamahassan/finalapp
+                docker push osamahassan/finalapp
+                """
+                }
+            }
+        }
+         stage('CD') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'osos-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                git 'https://github.com/mahmoud254/jenkins_nodejs_example'
+                sh """
+                docker login -u ${USERNAME} -p ${PASSWORD}
+                docker run -d -p 3000:3000 osamahassan/finalapp
+                """
+                }
+            }
+        }
+    }
+}
