@@ -20,7 +20,8 @@ pipeline {
                 git 'https://github.com/Osama-hassan007/App-For-Final-Project.git'
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
-                docker run -d -p 3000:3000 osamahassan/finalapp
+                kubectl apply -f /var/jenkins_home/workspace/nagato/app.yaml
+                kubectl apply -f /var/jenkins_home/workspace/nagato/lba.yaml
                 """
                 }
             }
