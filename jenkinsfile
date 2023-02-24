@@ -8,7 +8,7 @@ pipeline {
                 git 'https://github.com/mahmoud254/jenkins_nodejs_example.git'
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
-                docker build . -f dockerfile -t osamahassan/finalapp
+                docker build . -t osamahassan/finalapp --network host
                 docker push osamahassan/finalapp
                 """
                 }
