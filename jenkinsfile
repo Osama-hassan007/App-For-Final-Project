@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('CI') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'osos-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'osos_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 git 'https://github.com/mahmoud254/jenkins_nodejs_example'
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
@@ -16,7 +16,7 @@ pipeline {
         }
          stage('CD') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'osos-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'osos_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 git 'https://github.com/mahmoud254/jenkins_nodejs_example'
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
