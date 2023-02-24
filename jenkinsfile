@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('CI') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'osos_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                git 'https://github.com/mahmoud254/jenkins_nodejs_example'
+                withCredentials([usernamePassword(credentialsId: 'osama-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                git 'https://github.com/Osama-hassan007/App-For-Final-Project.git'
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
                 docker build . -f dockerfile -t osamahassan/finalapp
@@ -16,8 +16,8 @@ pipeline {
         }
          stage('CD') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'osos_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                git 'https://github.com/mahmoud254/jenkins_nodejs_example'
+                withCredentials([usernamePassword(credentialsId: 'osama-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                git 'https://github.com/Osama-hassan007/App-For-Final-Project.git'
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
                 docker run -d -p 3000:3000 osamahassan/finalapp
